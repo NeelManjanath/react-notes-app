@@ -4,6 +4,7 @@ import OpenNewNote from "./Components/OpenNewNote/OpenNewNote.tsx";
 import { Note } from "./types.ts";
 
 function App() {
+  const [showNotes, setShowNotes] = useState(true)
   const [modal, setModal] = useState(false);
   const [notes, setNotes] = useState<Note[]>([{ title: "", content: "", id: Math.random()}]);
   if (modal) {
@@ -32,6 +33,7 @@ function App() {
             <OpenNewNote setNotes={setNotes} setModal={setModal} />
           ) : null}
         </div>
+        
         <div className="notes-section">
           <ul className="notes-list">
             {notes.map(({ title, content, id }, index) => {
