@@ -1,38 +1,58 @@
 import { useState } from "react";
 import "./App.css";
 import OpenNewNote from "./Components/OpenNewNote/OpenNewNote.tsx";
-import AddNewNote from "./Components/NotesList/NotesList.tsx";
-
-interface NoteProps {
-  input: string;
-  setInput: React.Dispatch<React.SetStateAction<string>>;
-}
+import { Note } from "./types.ts";
 
 function App() {
   const [modal, setModal] = useState(false);
-  const [input, setInput] = useState('')
-  
+  const [notes, setNotes] = useState<Note[]>([{ title: "", content: "", id: Math.random()}]);
   if (modal) {
-   document.body.classList.add('modal-active')
+    document.body.classList.add("modal-active");
   } else {
-    document.body.classList.remove('modal-active')
+    document.body.classList.remove("modal-active");
+  }
+  function removeNote(index: number) {
+    setNotes((prev) => prev.filter())  
+  
   }
   return (
-    
     <>
       <div className="main-body">
         <div className="top-bar">
           <h1>
-            My Notes (<span>-</span>)
+            My Notes (<span id="note-cnt">{notes.length - 1}</span>)
           </h1>
           <button id="add-note" onClick={() => setModal(true)}>
             +
           </button>
-          {modal ? <OpenNewNote setModal={setModal}/> : null}
+          {modal ? (
+            <OpenNewNote setNotes={setNotes} setModal={setModal} />
+          ) : null}
         </div>
         <div className="notes-section">
           <ul className="notes-list">
-            (input !== '' ? <AddNewNote setInput={setInput}/> : null)
+            {notes.map(({ title, content, id }, index) => {
+              if (title === "" && content === "") return null;
+              return (
+                <li key={id}>
+                  <div className="note-details">
+                    <h2>{title}</h2>
+                    <p>{content}</p>
+                  </div>
+                  <div className="note-manage-buttons">
+                    <button className="edit-btn">Edit</button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => {
+                        removeNote(index);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

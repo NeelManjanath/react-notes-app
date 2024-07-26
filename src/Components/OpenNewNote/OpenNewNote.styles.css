@@ -58,11 +58,8 @@ input {
    margin: 1rem;
    margin-left: 0;
    width: 100%;
-   min-width: 500px;
-   min-height: 250px;
-   max-width: 500px;
-   max-height: 250px;
-   /* overflow: hidden; */
+   width: 500px;
+   height: 250px;
 }
 textarea:focus, input:focus {
    outline: none
@@ -71,3 +68,9 @@ textarea:focus, input:focus {
    display: flex;
    justify-content: space-between;
 }
+.save-btn:hover {
+   color: cadetblue;
+}
+.close-btn:hover {
+   color: rgba(0, 0, 0, 0.507);
+  }
