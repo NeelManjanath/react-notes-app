@@ -12,8 +12,11 @@ function App() {
     document.body.classList.remove("modal-active");
   }
   function removeNote(index: number) {
-    setNotes((prev) => prev.filter())  
-  
+    setNotes((prev) => {
+      const notesCopy = [...prev];
+      notesCopy.splice(index, 1);
+      return notesCopy;
+    });
   }
   return (
     <>
@@ -40,7 +43,7 @@ function App() {
                     <p>{content}</p>
                   </div>
                   <div className="note-manage-buttons">
-                    <button className="edit-btn">Edit</button>
+                    {/* <button className="edit-btn">Edit</button> */}
                     <button
                       className="delete-btn"
                       onClick={() => {

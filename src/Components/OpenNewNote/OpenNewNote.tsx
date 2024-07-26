@@ -47,7 +47,7 @@ function OpenNewNote({ setModal, setNotes }: IProps) {
             }
           />
           <div className="note-buttons">
-            <button className="save-btn" onClick={(userInput.content !== '' && userInput.title !== '') ? saveNote : undefined}>Save</button>
+            <button className="save-btn" onClick={(userInput.title !== '') ? saveNote : undefined}>Save</button>
             <button className="close-btn" onClick={() => setModal(false)}>Close</button>
           </div>
         </div>

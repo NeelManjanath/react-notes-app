@@ -71,7 +71,7 @@ li {
   cursor: pointer;
 }
 .edit-btn:hover {
-  color: #a8a8a8;
+  color: cadetblue;
 }
 .delete-btn:hover {
   color: #FF4C4C;
