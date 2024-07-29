@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import OpenNewNote from "./Components/OpenNewNote/OpenNewNote.tsx";
 import { Note } from "./types.ts";
+import extractLocalStorage from "./Utils/extractLocalStorage.ts";
 
 function App() {
-  const [showNotes, setShowNotes] = useState(true)
   const [modal, setModal] = useState(false);
-  const [notes, setNotes] = useState<Note[]>([{ title: "", content: "", id: Math.random()}]);
+  const [notes, setNotes] = useState<Note[]>([
+    { title: "", content: "", id: Math.random() },
+  ]);
+
   if (modal) {
     document.body.classList.add("modal-active");
   } else {
@@ -16,15 +19,22 @@ function App() {
     setNotes((prev) => {
       const notesCopy = [...prev];
       notesCopy.splice(index, 1);
+      localStorage.setItem("notes", JSON.stringify(notesCopy));
       return notesCopy;
     });
   }
+  useEffect(() => {
+    const json = extractLocalStorage<Note[]>();
+    if (!json) return;
+    setNotes(json);
+  }, []);
+
   return (
     <>
       <div className="main-body">
         <div className="top-bar">
           <h1>
-            My Notes (<span id="note-cnt">{notes.length - 1}</span>)
+            My Notes (<span id="note-cnt">{notes.length}</span>)
           </h1>
           <button id="add-note" onClick={() => setModal(true)}>
             +
@@ -33,7 +43,7 @@ function App() {
             <OpenNewNote setNotes={setNotes} setModal={setModal} />
           ) : null}
         </div>
-        
+
         <div className="notes-section">
           <ul className="notes-list">
             {notes.map(({ title, content, id }, index) => {
