@@ -34,7 +34,7 @@ function App() {
       <div className="main-body">
         <div className="top-bar">
           <h1>
-            My Notes (<span id="note-cnt">{notes.length}</span>)
+            My Notes (<span id="note-cnt">{notes.length - 1}</span>)
           </h1>
           <button id="add-note" onClick={() => setModal(true)}>
             +
